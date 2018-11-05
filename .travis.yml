@@ -21,8 +21,7 @@ env:
     - DATABASE_URL=ecto://postgres:@localhost/invault_test
 
 before_script:
-  - psql -c 'create database invault_test;' -U postgres
-  - mix do ecto.migrate
+  - mix do ecto.create, ecto.migrate
 
 script:
   - mix format --check-formatted
