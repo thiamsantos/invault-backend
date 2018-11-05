@@ -1,6 +1,7 @@
 # Invault backend
 
 [![Build Status](https://travis-ci.com/invault-team/backend.svg?branch=master)](https://travis-ci.com/invault-team/backend)
+[![Coverage Status](https://coveralls.io/repos/github/invault-team/backend/badge.svg?branch=master)](https://coveralls.io/github/invault-team/backend?branch=master)
 
 To start your Phoenix server:
 

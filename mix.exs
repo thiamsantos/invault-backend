@@ -10,7 +10,9 @@ defmodule Invault.Mixfile do
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.travis": :test, "coveralls.html": :test]
     ]
   end
 
@@ -40,7 +42,8 @@ defmodule Invault.Mixfile do
       {:plug_cowboy, "~> 1.0"},
       {:jason, "~> 1.1"},
       {:absinthe_plug, "~> 1.4"},
-      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false}
+      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.10.1", only: :test, runtime: false}
     ]
   end
 
