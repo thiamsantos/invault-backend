@@ -2,8 +2,8 @@ defmodule Invault.Accounts.Schemas.RecoveryCodeTest do
   use Invault.DataCase, async: true
 
   alias Ecto.UUID
-  alias Invault.Repo
   alias Invault.Accounts.Schemas.RecoveryCode
+  alias Invault.Repo
 
   describe "changeset/2" do
     test "should require code and totp_secret_id" do

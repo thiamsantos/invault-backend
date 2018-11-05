@@ -1,7 +1,10 @@
 defmodule Invault.Factory do
+  @moduledoc """
+  Provides functionality to easily create test data.
+  """
   use ExMachina.Ecto, repo: Invault.Repo
 
-  alias Invault.Accounts.Schemas.{TotpSecret, RecoveryCode}
+  alias Invault.Accounts.Schemas.{RecoveryCode, TotpSecret}
 
   def accounts_totp_secret_factory do
     secret = 20 |> :crypto.strong_rand_bytes() |> Base.encode32()
