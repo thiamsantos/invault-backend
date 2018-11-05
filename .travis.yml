@@ -21,10 +21,11 @@ otp_release:
 env: 
   global:
     - MIX_ENV=test
-    - DATABASE_URL=ecto://postgres:@postgres/invault_test
+    - DATABASE_URL=ecto://postgres:@localhost/invault_test
 
 before_script:
-  - mix do ecto.create, ecto.migrate
+  - psql -c 'create database invault_test;' -U postgres
+  - mix do ecto.migrate
 
 script:
   - mix format --check-formatted
