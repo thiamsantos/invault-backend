@@ -6,9 +6,6 @@ cache:
     - ~/.mix
     - deps
 
-addons:
-  postgresql: '10'
-
 services:
   - postgresql
 
