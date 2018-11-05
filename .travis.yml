@@ -9,6 +9,9 @@ cache:
 addons:
   postgresql: '10'
 
+services:
+  - postgresql
+
 elixir:
   - 1.6.6
 
