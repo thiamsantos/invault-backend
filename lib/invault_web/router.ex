@@ -7,14 +7,12 @@ defmodule InvaultWeb.Router do
 
   scope "/" do
     pipe_through :api
-    
-    forward "/graphql", Absinthe.Plug,
-      schema: InvaultWeb.GraphQL.Schema
-  
-    forward "/graphiql",
-      Absinthe.Plug.GraphiQL,
-      schema: InvaultWeb.GraphQL.Schema,
-      interface: :playground
-  end
 
+    forward "/graphql", Absinthe.Plug, schema: InvaultWeb.GraphQL.Schema
+
+    forward "/graphiql",
+            Absinthe.Plug.GraphiQL,
+            schema: InvaultWeb.GraphQL.Schema,
+            interface: :playground
+  end
 end

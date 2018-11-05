@@ -11,7 +11,7 @@ defmodule Invault.Application do
       # Start the Ecto repository
       supervisor(Invault.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(InvaultWeb.Endpoint, []),
+      supervisor(InvaultWeb.Endpoint, [])
       # Start your own worker by calling: Invault.Worker.start_link(arg1, arg2, arg3)
       # worker(Invault.Worker, [arg1, arg2, arg3]),
     ]
