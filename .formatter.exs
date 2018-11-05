@@ -74,7 +74,7 @@ locals_without_parens = [
   inputs: [
     "mix.exs",
     "{config,lib,test}/**/*.{ex,exs}",
-    "priv/repo/seeds.exs",
+    "priv/repo/**/*.exs",
     "config/*.exs"
   ],
   import_deps: [:ecto, :phoenix, :absinthe]
