@@ -1,4 +1,7 @@
 defmodule InvaultWeb.GraphQL.Schema do
+  @moduledoc """
+  GraphQL Schema.
+  """
   use Absinthe.Schema
 
   query do

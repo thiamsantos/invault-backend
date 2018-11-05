@@ -1,5 +1,9 @@
 defmodule Invault.Application do
+  @moduledoc """
+  Invault application.
+  """
   use Application
+  # credo:disable-for-this-file Credo.Check.Design.AliasUsage
 
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications

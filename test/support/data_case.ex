@@ -12,6 +12,8 @@ defmodule Invault.DataCase do
   of the test unless the test case is marked as async.
   """
 
+  # credo:disable-for-this-file Credo.Check.Design.AliasUsage
+
   use ExUnit.CaseTemplate
 
   using do

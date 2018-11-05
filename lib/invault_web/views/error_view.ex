@@ -1,6 +1,8 @@
 defmodule InvaultWeb.ErrorView do
   use InvaultWeb, :view
 
+  import Phoenix.Controller, only: [status_message_from_template: 1]
+
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
   # def render("500.json", _assigns) do
@@ -11,6 +13,6 @@ defmodule InvaultWeb.ErrorView do
   # the template name. For example, "404.json" becomes
   # "Not Found".
   def template_not_found(template, _assigns) do
-    %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
+    %{errors: %{detail: status_message_from_template(template)}}
   end
 end
