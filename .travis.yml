@@ -1,0 +1,28 @@
+language: elixir
+
+cache:
+  directories:
+    - ~/.hex
+    - ~/.mix
+    - deps
+
+addons:
+  postgresql: '10'
+
+elixir:
+  - 1.6.6
+
+otp_release:
+  - 20.3
+
+env: 
+  - MIX_ENV=test
+  - DATABASE_URL=ecto://postgres:@localhost/invault_test
+
+before_script:
+  - mix do ecto.create, ecto.migrate
+
+script:
+  - mix format --check-formatted
+  - mix credo
+  - mix test

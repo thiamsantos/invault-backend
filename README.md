@@ -1,5 +1,7 @@
 # Invault backend
 
+[![Build Status](https://travis-ci.com/invault-team/backend.svg?branch=master)](https://travis-ci.com/invault-team/backend)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
