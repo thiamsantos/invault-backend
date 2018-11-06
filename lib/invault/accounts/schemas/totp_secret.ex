@@ -18,7 +18,6 @@ defmodule Invault.Accounts.Schemas.TotpSecret do
   def changeset(totp_secret, attrs) do
     totp_secret
     |> cast(attrs, @fields)
-    |> cast_assoc(:recovery_codes)
     |> validate_required(@fields)
     |> validate_length(:secret, is: 32)
   end
