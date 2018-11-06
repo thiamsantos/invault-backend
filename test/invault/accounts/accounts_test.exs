@@ -19,8 +19,7 @@ defmodule Invault.AccountsTest do
       assert length(totp_secret.recovery_codes) == 6
 
       for recovery_code <- totp_secret.recovery_codes do
-        assert Repo.get!(RecoveryCode, recovery_code.id).code == recovery_code.code
-        assert String.length(recovery_code.code) == 44
+        assert Repo.get!(RecoveryCode, recovery_code.id).used_at == nil
       end
     end
   end

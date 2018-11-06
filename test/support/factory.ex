@@ -15,11 +15,9 @@ defmodule Invault.Factory do
   end
 
   def accounts_recovery_code_factory do
-    code = 32 |> :crypto.strong_rand_bytes() |> Base.url_encode64()
     totp_secret = build(:accounts_totp_secret)
 
     %RecoveryCode{
-      code: code,
       totp_secret: totp_secret
     }
   end
