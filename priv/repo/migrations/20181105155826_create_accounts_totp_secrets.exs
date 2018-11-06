@@ -3,8 +3,8 @@ defmodule Invault.Repo.Migrations.CreateAccountsTotpSecrets do
 
   def change do
     create table(:accounts_totp_secrets, primary_key: false) do
-      add(:id, :binary_id, primary_key: true)
-      add(:secret, :string, null: false, size: 32)
+      add :id, :binary_id, primary_key: true
+      add :secret, :string, null: false, size: 32
 
       timestamps()
     end
