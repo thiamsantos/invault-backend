@@ -8,7 +8,9 @@ defmodule InvaultWeb.GraphQL.Accounts.Types do
     description "A secret used to generate TOTP codes for 2FA authentication"
     field :id, :id, description: "Unique identifier for a recovery code"
     field :secret, non_null(:string), description: "TOTP Secret"
-    field :recovery_codes, list_of(:recovery_code), description: "List of totp codes for this totp secret"
+
+    field :recovery_codes, list_of(:recovery_code),
+      description: "List of totp codes for this totp secret"
   end
 
   object :recovery_code do
