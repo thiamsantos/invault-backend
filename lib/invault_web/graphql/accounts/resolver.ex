@@ -5,6 +5,6 @@ defmodule InvaultWeb.GraphQL.Accounts.Resolver do
   alias Invault.Accounts
 
   def create_totp_secret(_, _) do
-    {:ok, Accounts.create_totp_secret()}
+    Accounts.create_totp_secret!()
   end
 end
