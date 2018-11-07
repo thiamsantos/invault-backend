@@ -66,7 +66,12 @@ locals_without_parens = [
 
   # Bamboo.Test
   assert_delivered_email: 1,
-  assert_email_delivered_with: 1
+  assert_email_delivered_with: 1,
+
+  # Ecto.Migration
+  add: 2,
+  add: 3,
+  create: 1
 ]
 
 [

@@ -24,6 +24,7 @@ defmodule Invault.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Invault.DataCase
+      import Invault.Factory
     end
   end
 

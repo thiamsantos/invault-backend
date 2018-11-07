@@ -43,7 +43,8 @@ defmodule Invault.Mixfile do
       {:jason, "~> 1.1"},
       {:absinthe_plug, "~> 1.4"},
       {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.10.1", only: :test, runtime: false}
+      {:excoveralls, "~> 0.10.1", only: :test, runtime: false},
+      {:ex_machina, "~> 2.2"}
     ]
   end
 

@@ -1,14 +1,14 @@
-defmodule Invault.Accounts.TotpSecret do
+defmodule Invault.Accounts.Schemas.TotpSecret do
   @moduledoc """
   Totp Secret used to validate the totp sended by a user on a login with 2FA.
   """
-  use Ecto.Schema
+  use Invault.Schema
   import Ecto.Changeset
+  alias Invault.Accounts.Schemas.RecoveryCode
 
-  @primary_key {:id, :binary_id, autogenerate: true}
-  @foreign_key_type :binary_id
   schema "accounts_totp_secrets" do
     field :secret, :string
+    has_many :recovery_codes, RecoveryCode
     timestamps()
   end
 
