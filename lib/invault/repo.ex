@@ -1,5 +1,5 @@
 defmodule Invault.Repo do
-  use Ecto.Repo, otp_app: :invault
+  use Ecto.Repo, otp_app: :invault, adapter: Ecto.Adapters.Postgres
 
   @doc """
   Dynamically loads the repository url from the

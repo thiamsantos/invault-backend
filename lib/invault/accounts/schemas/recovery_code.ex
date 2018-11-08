@@ -7,9 +7,8 @@ defmodule Invault.Accounts.Schemas.RecoveryCode do
   alias Invault.Accounts.Schemas.TotpSecret
 
   schema "accounts_recovery_codes" do
-    field :used_at, :utc_datetime
+    field :used_at, :utc_datetime_usec
     belongs_to :totp_secret, TotpSecret
-
     timestamps()
   end
 

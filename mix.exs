@@ -5,7 +5,7 @@ defmodule Invault.Mixfile do
     [
       app: :invault,
       version: "0.0.1",
-      elixir: "~> 1.6.6",
+      elixir: "~> 1.7.3",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -35,11 +35,12 @@ defmodule Invault.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.4"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:phoenix, "~> 1.4.0"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:cowboy, "~> 1.0"},
-      {:plug_cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
+      {:plug, "~> 1.7"},
       {:jason, "~> 1.1"},
       {:absinthe_plug, "~> 1.4"},
       {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
