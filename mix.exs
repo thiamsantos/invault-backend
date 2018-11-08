@@ -5,7 +5,7 @@ defmodule Invault.Mixfile do
     [
       app: :invault,
       version: "0.0.1",
-      elixir: "~> 1.6.6",
+      elixir: "~> 1.7.3",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
