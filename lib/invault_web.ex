@@ -21,7 +21,7 @@ defmodule InvaultWeb do
     quote do
       use Phoenix.Controller, namespace: InvaultWeb
       import Plug.Conn
-      import InvaultWeb.Router.Helpers
+      alias InvaultWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -34,7 +34,7 @@ defmodule InvaultWeb do
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
 
-      import InvaultWeb.Router.Helpers
+      alias InvaultWeb.Router.Helpers, as: Routes
       import InvaultWeb.ErrorHelpers
     end
   end
