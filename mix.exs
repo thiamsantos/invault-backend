@@ -45,7 +45,9 @@ defmodule Invault.Mixfile do
       {:absinthe_plug, "~> 1.4"},
       {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10.1", only: :test, runtime: false},
-      {:ex_machina, "~> 2.2"}
+      {:ex_machina, "~> 2.2"},
+      {:faker, "~> 0.11", only: :test},
+      {:srp, "~> 0.2.0"}
     ]
   end
 
