@@ -1,6 +1,7 @@
 defmodule Invault.Accounts.Schemas.TotpSecretTest do
   use Invault.DataCase, async: true
 
+  alias Invault.Support.Generator
   alias Invault.Accounts.Schemas.TotpSecret
 
   describe "changeset/2" do
@@ -19,7 +20,7 @@ defmodule Invault.Accounts.Schemas.TotpSecretTest do
     end
 
     test "secret return error for secret above 32 characters" do
-      secret = 80 |> :crypto.strong_rand_bytes() |> Base.encode32()
+      secret = Generator.random_string(33)
       changeset = TotpSecret.changeset(%TotpSecret{}, %{secret: secret})
 
       assert changeset.valid? == false
@@ -35,7 +36,7 @@ defmodule Invault.Accounts.Schemas.TotpSecretTest do
     end
 
     test "should secret should accept 32 characters" do
-      secret = 20 |> :crypto.strong_rand_bytes() |> Base.encode32()
+      secret = Generator.random_string(32)
       changeset = TotpSecret.changeset(%TotpSecret{}, %{secret: secret})
 
       assert changeset.valid? == true
