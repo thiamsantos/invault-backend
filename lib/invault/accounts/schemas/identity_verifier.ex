@@ -1,4 +1,7 @@
 defmodule Invault.Accounts.Schemas.IdentityVerifier do
+  @moduledoc """
+  Data used to verify the identity of an user. 
+  """
   use Invault.Schema
   import Ecto.Changeset
 

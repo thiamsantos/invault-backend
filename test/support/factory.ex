@@ -1,6 +1,6 @@
 defmodule Invault.Factory do
   @moduledoc """
-  Provides functionality to easily create test data.
+  Easily create data on the database for testing purposes.
   """
   use ExMachina.Ecto, repo: Invault.Repo
 

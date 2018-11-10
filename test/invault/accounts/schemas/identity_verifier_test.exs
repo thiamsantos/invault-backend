@@ -1,8 +1,8 @@
 defmodule Invault.Accounts.Schemas.IdentityVerifierTest do
   use Invault.DataCase, async: true
 
-  alias Invault.Support.Generator
   alias Invault.Accounts.Schemas.IdentityVerifier
+  alias Invault.Support.Generator
 
   describe "changeset/2" do
     test "secret and password verifier should be required" do

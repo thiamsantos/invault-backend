@@ -9,6 +9,7 @@ defmodule Invault.Accounts.Schemas.TotpSecret do
   schema "accounts_totp_secrets" do
     field :secret, :string
     has_many :recovery_codes, RecoveryCode
+
     timestamps()
   end
 
