@@ -5,7 +5,14 @@ defmodule Invault.Factory do
   use ExMachina.Ecto, repo: Invault.Repo
 
   alias Faker.{Internet, Name}
-  alias Invault.Accounts.Schemas.{IdentityVerifier, RecoveryCode, TotpSecret, User}
+
+  alias Invault.Accounts.Schemas.{
+    ActivationCode,
+    IdentityVerifier,
+    RecoveryCode,
+    TotpSecret,
+    User
+  }
 
   def accounts_totp_secret_factory do
     secret = 20 |> :crypto.strong_rand_bytes() |> Base.encode32()
@@ -44,6 +51,15 @@ defmodule Invault.Factory do
       name: Name.name(),
       totp_secret: totp_secret,
       identity_verifier: identity_verifier
+    }
+  end
+
+  def accounts_activation_code_factory do
+    user = build(:accounts_user)
+
+    %ActivationCode{
+      user: user,
+      expires_at: DateTime.utc_now() |> Timex.shift(days: 7)
     }
   end
 end

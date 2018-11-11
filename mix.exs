@@ -47,7 +47,8 @@ defmodule Invault.Mixfile do
       {:excoveralls, "~> 0.10.1", only: :test, runtime: false},
       {:ex_machina, "~> 2.2"},
       {:faker, "~> 0.11", only: :test},
-      {:srp, "~> 0.2.0"}
+      {:srp, "~> 0.2.0"},
+      {:timex, "~> 3.4"}
     ]
   end
 
