@@ -43,3 +43,5 @@ config :invault, Invault.Repo,
   database: "invault_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :invault, Invault.Mailer, adapter: Bamboo.LocalAdapter

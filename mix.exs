@@ -48,7 +48,9 @@ defmodule Invault.Mixfile do
       {:ex_machina, "~> 2.2"},
       {:faker, "~> 0.11", only: :test},
       {:srp, "~> 0.2.0"},
-      {:timex, "~> 3.4"}
+      {:timex, "~> 3.4"},
+      {:bamboo, "~> 1.1"},
+      {:phoenix_html, "~> 2.12"}
     ]
   end
 

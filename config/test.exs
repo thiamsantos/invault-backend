@@ -16,3 +16,5 @@ config :invault, Invault.Repo,
   database: "invault_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :invault, Invault.Mailer, adapter: Bamboo.TestAdapter

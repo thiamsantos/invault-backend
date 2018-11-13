@@ -20,6 +20,8 @@ config :invault, InvaultWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :invault, Invault.Mailer, adapter: Bamboo.SendGridAdapter
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
