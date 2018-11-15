@@ -50,7 +50,8 @@ defmodule Invault.Mixfile do
       {:srp, "~> 0.2.0"},
       {:timex, "~> 3.4"},
       {:bamboo, "~> 1.1"},
-      {:phoenix_html, "~> 2.12"}
+      {:phoenix_html, "~> 2.12"},
+      {:pot, "~> 0.9.7"}
     ]
   end
 

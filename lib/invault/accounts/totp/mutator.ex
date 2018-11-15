@@ -1,4 +1,7 @@
 defmodule Invault.Accounts.TOTP.Mutator do
+  @moduledoc """
+  Mutate database records related to the TOTP functionality.
+  """
   alias Invault.Repo
   alias Invault.Accounts.Schemas.{RecoveryCode, TotpSecret}
 

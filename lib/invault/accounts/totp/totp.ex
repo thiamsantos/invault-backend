@@ -1,10 +1,19 @@
 defmodule Invault.Accounts.TOTP do
-  alias Invault.Repo
-  alias Invault.Accounts.TOTP.Mutator
+  @moduledoc """
+  Provides funcionality to handle Time-based One-time Password (TOTP).
+  It's used in two factor authentication.
+  """
   alias Invault.Accounts.Schemas.TotpSecret
+  alias Invault.Accounts.TOTP.Mutator
+  alias Invault.Repo
 
   @recovery_codes_amount 6
 
+  @doc """
+  Create a TOTP secret, stores it on the database and 
+  create #{@recovery_codes_amount} recovery codes that can be used in the 
+  future to restore the two factor authentication of an user.
+  """
   def create_secret! do
     Repo.transaction(fn ->
       generate_secret()
@@ -13,7 +22,24 @@ defmodule Invault.Accounts.TOTP do
     end)
   end
 
-  defp generate_secret do
+  @doc """
+  Verifies the validity of a TOTP code given it's secret.
+  """
+  def valid?(secret, totp_code) do
+    :pot.valid_totp(totp_code, secret)
+  end
+
+  @doc """
+  Generate a TOTP code given the secret.
+  """
+  def generate_totp_code(secret) do
+    :pot.totp(secret)
+  end
+
+  @doc """
+  Generate a 32 characters of length random TOTP secret.
+  """
+  def generate_secret do
     20
     |> :crypto.strong_rand_bytes()
     |> Base.encode32()
