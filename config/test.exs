@@ -18,3 +18,4 @@ config :invault, Invault.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :invault, Invault.Mailer, adapter: Bamboo.TestAdapter
+config :invault, Invault.CurrentTime, adapter: Invault.CurrentTime.Mock

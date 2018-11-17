@@ -2,7 +2,7 @@ defmodule Invault.Accounts.Schemas.TotpSecretTest do
   use Invault.DataCase, async: true
 
   alias Invault.Accounts.Schemas.TotpSecret
-  alias Invault.Support.Generator
+  alias Invault.Generator
 
   describe "changeset/2" do
     test "should require secret field" do

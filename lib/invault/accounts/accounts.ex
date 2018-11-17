@@ -3,7 +3,7 @@ defmodule Invault.Accounts do
   Provides functionality to handle the lifecycle of an account.
   """
 
-  alias Invault.Accounts.{Loader, TOTP}
+  alias Invault.Accounts.{Loader, Registration, TOTP}
 
   @doc """
   Create a TOTP to setup 2FA for an client.
@@ -21,4 +21,6 @@ defmodule Invault.Accounts do
   Get from the database a totp secret given its id.
   """
   defdelegate get_totp_secret!(totp_secret_id), to: Loader
+
+  defdelegate register(request), to: Registration
 end

@@ -4,7 +4,7 @@ defmodule Invault.Factory do
   """
   use ExMachina.Ecto, repo: Invault.Repo
 
-  alias Faker.{Internet, Name}
+  alias Invault.Generator
 
   alias Invault.Accounts.Schemas.{
     ActivationCode,
@@ -31,7 +31,7 @@ defmodule Invault.Factory do
   end
 
   def accounts_identity_verifier_factory do
-    email = Internet.email()
+    email = Generator.random_email()
 
     identity = SRP.new_identity(email, "password123")
     identity_verifier = SRP.generate_verifier(identity)
@@ -47,8 +47,8 @@ defmodule Invault.Factory do
     totp_secret = build(:accounts_totp_secret)
 
     %User{
-      email: Internet.email(),
-      name: Name.name(),
+      email: Generator.random_email(),
+      name: Generator.random_name(),
       totp_secret: totp_secret,
       identity_verifier: identity_verifier
     }

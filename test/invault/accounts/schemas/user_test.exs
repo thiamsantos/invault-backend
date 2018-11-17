@@ -2,9 +2,8 @@ defmodule Invault.Accounts.Schemas.UserTest do
   use Invault.DataCase, async: true
 
   alias Ecto.UUID
-  alias Faker.{Internet, Name}
   alias Invault.Accounts.Schemas.User
-  alias Invault.Support.Generator
+  alias Invault.Generator
 
   describe "changeset/2" do
     test "should be valid with right parameters" do
@@ -12,8 +11,8 @@ defmodule Invault.Accounts.Schemas.UserTest do
       totp_secret = insert(:accounts_totp_secret)
 
       attrs = %{
-        email: Internet.email(),
-        name: Name.name(),
+        email: Generator.random_email(),
+        name: Generator.random_name(),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: identity_verifier.id
       }
@@ -36,7 +35,7 @@ defmodule Invault.Accounts.Schemas.UserTest do
       totp_secret = insert(:accounts_totp_secret)
 
       attrs = %{
-        name: Name.name(),
+        name: Generator.random_name(),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: identity_verifier.id
       }
@@ -52,7 +51,7 @@ defmodule Invault.Accounts.Schemas.UserTest do
       totp_secret = insert(:accounts_totp_secret)
 
       attrs = %{
-        email: Internet.email(),
+        email: Generator.random_email(),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: identity_verifier.id
       }
@@ -67,8 +66,8 @@ defmodule Invault.Accounts.Schemas.UserTest do
       identity_verifier = insert(:accounts_identity_verifier)
 
       attrs = %{
-        name: Name.name(),
-        email: Internet.email(),
+        name: Generator.random_name(),
+        email: Generator.random_email(),
         identity_verifier_id: identity_verifier.id
       }
 
@@ -82,8 +81,8 @@ defmodule Invault.Accounts.Schemas.UserTest do
       totp_secret = insert(:accounts_totp_secret)
 
       attrs = %{
-        name: Name.name(),
-        email: Internet.email(),
+        name: Generator.random_name(),
+        email: Generator.random_email(),
         totp_secret_id: totp_secret.id
       }
 
@@ -98,8 +97,8 @@ defmodule Invault.Accounts.Schemas.UserTest do
       totp_secret = insert(:accounts_totp_secret)
 
       attrs = %{
-        email: Generator.random_string(300) <> Internet.email(),
-        name: Name.name(),
+        email: Generator.random_string(300) <> Generator.random_email(),
+        name: Generator.random_name(),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: identity_verifier.id
       }
@@ -116,7 +115,7 @@ defmodule Invault.Accounts.Schemas.UserTest do
 
       attrs = %{
         email: "invault.com",
-        name: Name.name(),
+        name: Generator.random_name(),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: identity_verifier.id
       }
@@ -132,7 +131,7 @@ defmodule Invault.Accounts.Schemas.UserTest do
       totp_secret = insert(:accounts_totp_secret)
 
       attrs = %{
-        email: Internet.email(),
+        email: Generator.random_email(),
         name: Generator.random_string(300),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: identity_verifier.id
@@ -145,7 +144,7 @@ defmodule Invault.Accounts.Schemas.UserTest do
     end
 
     test "email should be unique" do
-      email = Internet.email()
+      email = Generator.random_email()
       insert(:accounts_user, email: email)
 
       identity_verifier = insert(:accounts_identity_verifier)
@@ -153,7 +152,7 @@ defmodule Invault.Accounts.Schemas.UserTest do
 
       attrs = %{
         email: email,
-        name: Name.name(),
+        name: Generator.random_name(),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: identity_verifier.id
       }
@@ -174,8 +173,8 @@ defmodule Invault.Accounts.Schemas.UserTest do
       insert(:accounts_user, totp_secret: totp_secret)
 
       attrs = %{
-        email: Internet.email(),
-        name: Name.name(),
+        email: Generator.random_email(),
+        name: Generator.random_name(),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: identity_verifier.id
       }
@@ -196,8 +195,8 @@ defmodule Invault.Accounts.Schemas.UserTest do
       insert(:accounts_user, identity_verifier: identity_verifier)
 
       attrs = %{
-        email: Internet.email(),
-        name: Name.name(),
+        email: Generator.random_email(),
+        name: Generator.random_name(),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: identity_verifier.id
       }
@@ -215,8 +214,8 @@ defmodule Invault.Accounts.Schemas.UserTest do
       identity_verifier = insert(:accounts_identity_verifier)
 
       attrs = %{
-        email: Internet.email(),
-        name: Name.name(),
+        email: Generator.random_email(),
+        name: Generator.random_name(),
         totp_secret_id: UUID.generate(),
         identity_verifier_id: identity_verifier.id
       }
@@ -234,8 +233,8 @@ defmodule Invault.Accounts.Schemas.UserTest do
       totp_secret = insert(:accounts_totp_secret)
 
       attrs = %{
-        email: Internet.email(),
-        name: Name.name(),
+        email: Generator.random_email(),
+        name: Generator.random_name(),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: UUID.generate()
       }
@@ -256,8 +255,8 @@ defmodule Invault.Accounts.Schemas.UserTest do
       activated_at = DateTime.utc_now()
 
       attrs = %{
-        name: Name.name(),
-        email: Internet.email(),
+        name: Generator.random_name(),
+        email: Generator.random_email(),
         totp_secret_id: totp_secret.id,
         identity_verifier_id: identity_verifier.id,
         activated_at: activated_at

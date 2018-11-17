@@ -21,6 +21,7 @@ config :invault, InvaultWeb.Endpoint,
 config :logger, level: :info
 
 config :invault, Invault.Mailer, adapter: Bamboo.SendGridAdapter
+config :invault, Invault.CurrentTime, adapter: Invault.CurrentTime.SystemAdapter
 
 # ## SSL Support
 #

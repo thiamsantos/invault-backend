@@ -45,3 +45,4 @@ config :invault, Invault.Repo,
   pool_size: 10
 
 config :invault, Invault.Mailer, adapter: Bamboo.LocalAdapter
+config :invault, Invault.CurrentTime, adapter: Invault.CurrentTime.SystemAdapter
