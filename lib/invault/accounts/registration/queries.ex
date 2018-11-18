@@ -1,4 +1,7 @@
 defmodule Invault.Accounts.Registration.Queries do
+  @moduledoc """
+  Database queries related to account registration.
+  """
   import Ecto.Query, only: [from: 2]
   alias Invault.Accounts.Schemas.TotpSecret
 

@@ -1,1 +1,1 @@
-Mox.defmock(Invault.CurrentTime.Mock, for: Invault.CurrentTime.Behaviour)
+Mox.defmock(Invault.CurrentTime.Mock, for: Invault.CurrentTime.Adapter)

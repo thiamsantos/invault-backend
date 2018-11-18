@@ -1,4 +1,7 @@
 defmodule Invault.Accounts.Registration.Mutator do
+  @moduledoc """
+  Database mutation related to account registration.
+  """
   alias Invault.Repo
   alias Invault.Accounts.Schemas.{ActivationCode, IdentityVerifier, User}
 

@@ -23,6 +23,14 @@ config :logger, :console,
 
 config :phoenix, :json_library, Jason
 
+config :invault, Invault.Accounts.Registration.ActivationEmail,
+  origin: "Awesome",
+  origin_address: "invault-team@gmail.com",
+  subject: "Welcome to Invault!",
+  template_id: "801b6484-400c-4c0f-bdf8-86970d9e97c3",
+  activation_base_url: "https://invault.io/activate",
+  login_url: "https://invault.io/login"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

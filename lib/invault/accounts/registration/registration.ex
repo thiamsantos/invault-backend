@@ -1,4 +1,13 @@
 defmodule Invault.Accounts.Registration do
+  @moduledoc """
+  Registrate a user on the application. The following steps are taken:
+
+  - Validate the 2FA information.
+  - Create a identity verifier for the user.
+  - Insert the user on the database.
+  - Generate a activation code for the account.
+  - Send via email to the user the activation code.
+  """
   alias Invault.Repo
   alias Invault.{CurrentTime, Mailer}
   alias Invault.Accounts.Registration.{ActivationEmail, Loader, Mutator, Request}
@@ -7,17 +16,24 @@ defmodule Invault.Accounts.Registration do
 
   def register(%Request{} = request) do
     Repo.transaction(fn ->
-      with :ok <- validate_totp_code(request),
-           {:ok, %IdentityVerifier{} = identity_verifier} <- insert_identity_verifier(request),
-           {:ok, %User{} = user} <- insert_user(request, identity_verifier),
-           {:ok, %ActivationCode{} = activation_code} <- create_activation_code(user) do
-        deliver_activation_email!(user, activation_code)
-
-        user
-      else
+      case do_request(request) do
+        {:ok, user} -> user
         {:error, reason} -> Repo.rollback(reason)
       end
     end)
+  end
+
+  defp do_request(%Request{} = request) do
+    with :ok <- validate_totp_code(request),
+         {:ok, %IdentityVerifier{} = identity_verifier} <- insert_identity_verifier(request),
+         {:ok, %User{} = user} <- insert_user(request, identity_verifier),
+         {:ok, %ActivationCode{} = activation_code} <- create_activation_code(user) do
+      deliver_activation_email!(user, activation_code)
+
+      {:ok, user}
+    else
+      {:error, reason} -> {:error, reason}
+    end
   end
 
   defp insert_identity_verifier(%Request{salt: salt, password_verifier: password_verifier}) do

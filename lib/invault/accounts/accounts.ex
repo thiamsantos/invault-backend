@@ -22,5 +22,8 @@ defmodule Invault.Accounts do
   """
   defdelegate get_totp_secret!(totp_secret_id), to: Loader
 
+  @doc """
+  Register a user on database.
+  """
   defdelegate register(request), to: Registration
 end
