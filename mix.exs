@@ -52,7 +52,10 @@ defmodule Invault.Mixfile do
       {:bamboo, "~> 1.1"},
       {:phoenix_html, "~> 2.12"},
       {:pot, "~> 0.9.7"},
-      {:mox, "~> 0.4.0"}
+      {:mox, "~> 0.4.0"},
+      {:comeonin, "~> 4.1"},
+      {:argon2_elixir, "~> 1.3"},
+      {:jose, "~> 1.8"}
     ]
   end
 
