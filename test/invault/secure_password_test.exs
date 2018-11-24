@@ -4,7 +4,7 @@ defmodule Invault.SecurePasswordTest do
   alias Invault.{Generator, SecurePassword}
 
   describe "digest/2" do
-    test "should return a 128 caracteres length string" do
+    test "should return a 128 characters length string" do
       password = Generator.random_string(64)
       pepper = Generator.random_string(128)
 
@@ -15,7 +15,7 @@ defmodule Invault.SecurePasswordTest do
   end
 
   describe "valid?/3" do
-    test "should true when password an pepper are valid" do
+    test "should return true when password an pepper are valid" do
       password = Generator.random_string(64)
       pepper = Generator.random_string(128)
       digest = SecurePassword.digest(password, pepper)
@@ -23,7 +23,7 @@ defmodule Invault.SecurePasswordTest do
       assert SecurePassword.valid?(digest, password, pepper) == true
     end
 
-    test "should false when password is invalid" do
+    test "should return false when password is invalid" do
       password = Generator.random_string(64)
       another_password = Generator.random_string(64)
       pepper = Generator.random_string(128)
@@ -32,7 +32,7 @@ defmodule Invault.SecurePasswordTest do
       assert SecurePassword.valid?(digest, another_password, pepper) == false
     end
 
-    test "should false when pepper is invalid" do
+    test "should return false when pepper is invalid" do
       password = Generator.random_string(64)
       pepper = Generator.random_string(128)
       another_pepper = Generator.random_string(128)
@@ -41,7 +41,7 @@ defmodule Invault.SecurePasswordTest do
       assert SecurePassword.valid?(digest, password, another_pepper) == false
     end
 
-    test "should false when both password and pepper are invalid" do
+    test "should return false when both password and pepper are invalid" do
       password = Generator.random_string(64)
       pepper = Generator.random_string(128)
       another_password = Generator.random_string(64)

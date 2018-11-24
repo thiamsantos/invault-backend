@@ -46,3 +46,7 @@ config :invault, Invault.Repo,
 
 config :invault, Invault.Mailer, adapter: Bamboo.LocalAdapter
 config :invault, Invault.CurrentTime, adapter: Invault.CurrentTime.SystemAdapter
+
+config :invault, Invault.Accounts.Registration,
+  pepper:
+    "NUITuUCAclDannvrsnuh7Gp_IaogIx5j9hZBlc_XuXt7VvyQCm9LE9Q5w7YCfoHqNcz29sNOA_bkufN-duewvmABhsrpfP6cDFWUkJos-8NkpqjyRm5c0MBTHud2lOlU"

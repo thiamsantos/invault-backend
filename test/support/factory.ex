@@ -4,53 +4,18 @@ defmodule Invault.Factory do
   """
   use ExMachina.Ecto, repo: Invault.Repo
 
-  alias Invault.Generator
+  alias Invault.{Generator, SecurePassword}
 
-  alias Invault.Accounts.Schemas.{
-    ActivationCode,
-    IdentityVerifier,
-    RecoveryCode,
-    TotpSecret,
-    User
-  }
-
-  def accounts_totp_secret_factory do
-    secret = 20 |> :crypto.strong_rand_bytes() |> Base.encode32()
-
-    %TotpSecret{
-      secret: secret
-    }
-  end
-
-  def accounts_recovery_code_factory do
-    totp_secret = build(:accounts_totp_secret)
-
-    %RecoveryCode{
-      totp_secret: totp_secret
-    }
-  end
-
-  def accounts_identity_verifier_factory do
-    email = Generator.random_email()
-
-    identity = SRP.new_identity(email, "password123")
-    identity_verifier = SRP.generate_verifier(identity)
-
-    %IdentityVerifier{
-      password_verifier: Base.encode64(identity_verifier.password_verifier),
-      salt: Base.encode64(identity_verifier.salt)
-    }
-  end
+  alias Invault.Accounts.Schemas.{ActivationCode, User}
 
   def accounts_user_factory do
-    identity_verifier = build(:accounts_identity_verifier)
-    totp_secret = build(:accounts_totp_secret)
+    password = Generator.random_string(64)
+    pepper = Generator.random_string(128)
 
     %User{
       email: Generator.random_email(),
       name: Generator.random_name(),
-      totp_secret: totp_secret,
-      identity_verifier: identity_verifier
+      password_digest: SecurePassword.digest(password, pepper)
     }
   end
 

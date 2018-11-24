@@ -1,20 +1,18 @@
 defmodule Invault.Accounts.Schemas.UserTest do
   use Invault.DataCase, async: true
 
-  alias Ecto.UUID
   alias Invault.Accounts.Schemas.User
-  alias Invault.Generator
+  alias Invault.{Generator, SecurePassword}
 
   describe "changeset/2" do
     test "should be valid with right parameters" do
-      identity_verifier = insert(:accounts_identity_verifier)
-      totp_secret = insert(:accounts_totp_secret)
+      password = Generator.random_string(64)
+      pepper = Generator.random_string(128)
 
       attrs = %{
         email: Generator.random_email(),
         name: Generator.random_name(),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: identity_verifier.id
+        password_digest: SecurePassword.digest(password, pepper)
       }
 
       user =
@@ -26,18 +24,16 @@ defmodule Invault.Accounts.Schemas.UserTest do
 
       assert persisted_user.name == attrs[:name]
       assert persisted_user.email == attrs[:email]
-      assert persisted_user.totp_secret_id == attrs[:totp_secret_id]
-      assert persisted_user.identity_verifier_id == attrs[:identity_verifier_id]
+      assert persisted_user.password_digest == attrs[:password_digest]
     end
 
     test "email should be required" do
-      identity_verifier = insert(:accounts_identity_verifier)
-      totp_secret = insert(:accounts_totp_secret)
+      password = Generator.random_string(64)
+      pepper = Generator.random_string(128)
 
       attrs = %{
         name: Generator.random_name(),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: identity_verifier.id
+        password_digest: SecurePassword.digest(password, pepper)
       }
 
       changeset = User.changeset(%User{}, attrs)
@@ -47,13 +43,12 @@ defmodule Invault.Accounts.Schemas.UserTest do
     end
 
     test "name should be required" do
-      identity_verifier = insert(:accounts_identity_verifier)
-      totp_secret = insert(:accounts_totp_secret)
+      password = Generator.random_string(64)
+      pepper = Generator.random_string(128)
 
       attrs = %{
         email: Generator.random_email(),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: identity_verifier.id
+        password_digest: SecurePassword.digest(password, pepper)
       }
 
       changeset = User.changeset(%User{}, attrs)
@@ -62,45 +57,26 @@ defmodule Invault.Accounts.Schemas.UserTest do
       assert errors_on(changeset) == %{name: ["can't be blank"]}
     end
 
-    test "totp_secret_id should be required" do
-      identity_verifier = insert(:accounts_identity_verifier)
-
+    test "password_digest should be required" do
       attrs = %{
         name: Generator.random_name(),
-        email: Generator.random_email(),
-        identity_verifier_id: identity_verifier.id
+        email: Generator.random_email()
       }
 
       changeset = User.changeset(%User{}, attrs)
 
       assert changeset.valid? == false
-      assert errors_on(changeset) == %{totp_secret_id: ["can't be blank"]}
-    end
-
-    test "identity_verifier_id should be required" do
-      totp_secret = insert(:accounts_totp_secret)
-
-      attrs = %{
-        name: Generator.random_name(),
-        email: Generator.random_email(),
-        totp_secret_id: totp_secret.id
-      }
-
-      changeset = User.changeset(%User{}, attrs)
-
-      assert changeset.valid? == false
-      assert errors_on(changeset) == %{identity_verifier_id: ["can't be blank"]}
+      assert errors_on(changeset) == %{password_digest: ["can't be blank"]}
     end
 
     test "email should have less than 255 characters" do
-      identity_verifier = insert(:accounts_identity_verifier)
-      totp_secret = insert(:accounts_totp_secret)
+      password = Generator.random_string(64)
+      pepper = Generator.random_string(128)
 
       attrs = %{
         email: Generator.random_string(300) <> Generator.random_email(),
         name: Generator.random_name(),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: identity_verifier.id
+        password_digest: SecurePassword.digest(password, pepper)
       }
 
       changeset = User.changeset(%User{}, attrs)
@@ -110,14 +86,13 @@ defmodule Invault.Accounts.Schemas.UserTest do
     end
 
     test "email should have include an @" do
-      identity_verifier = insert(:accounts_identity_verifier)
-      totp_secret = insert(:accounts_totp_secret)
+      password = Generator.random_string(64)
+      pepper = Generator.random_string(128)
 
       attrs = %{
         email: "invault.com",
         name: Generator.random_name(),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: identity_verifier.id
+        password_digest: SecurePassword.digest(password, pepper)
       }
 
       changeset = User.changeset(%User{}, attrs)
@@ -127,14 +102,13 @@ defmodule Invault.Accounts.Schemas.UserTest do
     end
 
     test "name should have less than 255 characters" do
-      identity_verifier = insert(:accounts_identity_verifier)
-      totp_secret = insert(:accounts_totp_secret)
+      password = Generator.random_string(64)
+      pepper = Generator.random_string(128)
 
       attrs = %{
         email: Generator.random_email(),
         name: Generator.random_string(300),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: identity_verifier.id
+        password_digest: SecurePassword.digest(password, pepper)
       }
 
       changeset = User.changeset(%User{}, attrs)
@@ -143,18 +117,30 @@ defmodule Invault.Accounts.Schemas.UserTest do
       assert errors_on(changeset) == %{name: ["should be at most 255 character(s)"]}
     end
 
+    test "password digest should have less 128 characters" do
+      attrs = %{
+        email: Generator.random_email(),
+        name: Generator.random_name(),
+        password_digest: Generator.random_string(64)
+      }
+
+      changeset = User.changeset(%User{}, attrs)
+
+      assert changeset.valid? == false
+      assert errors_on(changeset) == %{password_digest: ["should be 128 character(s)"]}
+    end
+
     test "email should be unique" do
       email = Generator.random_email()
       insert(:accounts_user, email: email)
 
-      identity_verifier = insert(:accounts_identity_verifier)
-      totp_secret = insert(:accounts_totp_secret)
+      password = Generator.random_string(64)
+      pepper = Generator.random_string(128)
 
       attrs = %{
         email: email,
         name: Generator.random_name(),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: identity_verifier.id
+        password_digest: SecurePassword.digest(password, pepper)
       }
 
       {:error, changeset} =
@@ -166,99 +152,16 @@ defmodule Invault.Accounts.Schemas.UserTest do
       assert errors_on(changeset) == %{email: ["has already been taken"]}
     end
 
-    test "totp_secret_id should be unique" do
-      identity_verifier = insert(:accounts_identity_verifier)
-      totp_secret = insert(:accounts_totp_secret)
-
-      insert(:accounts_user, totp_secret: totp_secret)
-
-      attrs = %{
-        email: Generator.random_email(),
-        name: Generator.random_name(),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: identity_verifier.id
-      }
-
-      {:error, changeset} =
-        %User{}
-        |> User.changeset(attrs)
-        |> Repo.insert()
-
-      assert changeset.valid? == false
-      assert errors_on(changeset) == %{totp_secret_id: ["has already been taken"]}
-    end
-
-    test "identity_verifier_id should be unique" do
-      identity_verifier = insert(:accounts_identity_verifier)
-      totp_secret = insert(:accounts_totp_secret)
-
-      insert(:accounts_user, identity_verifier: identity_verifier)
-
-      attrs = %{
-        email: Generator.random_email(),
-        name: Generator.random_name(),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: identity_verifier.id
-      }
-
-      {:error, changeset} =
-        %User{}
-        |> User.changeset(attrs)
-        |> Repo.insert()
-
-      assert changeset.valid? == false
-      assert errors_on(changeset) == %{identity_verifier_id: ["has already been taken"]}
-    end
-
-    test "totp_secret_id should a valid reference" do
-      identity_verifier = insert(:accounts_identity_verifier)
-
-      attrs = %{
-        email: Generator.random_email(),
-        name: Generator.random_name(),
-        totp_secret_id: UUID.generate(),
-        identity_verifier_id: identity_verifier.id
-      }
-
-      {:error, changeset} =
-        %User{}
-        |> User.changeset(attrs)
-        |> Repo.insert()
-
-      assert changeset.valid? == false
-      assert errors_on(changeset) == %{totp_secret_id: ["does not exist"]}
-    end
-
-    test "identity_verifier_id should a valid reference" do
-      totp_secret = insert(:accounts_totp_secret)
-
-      attrs = %{
-        email: Generator.random_email(),
-        name: Generator.random_name(),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: UUID.generate()
-      }
-
-      {:error, changeset} =
-        %User{}
-        |> User.changeset(attrs)
-        |> Repo.insert()
-
-      assert changeset.valid? == false
-      assert errors_on(changeset) == %{identity_verifier_id: ["does not exist"]}
-    end
-
     test "activated_at should be parsed" do
-      identity_verifier = insert(:accounts_identity_verifier)
-      totp_secret = insert(:accounts_totp_secret)
+      password = Generator.random_string(64)
+      pepper = Generator.random_string(128)
 
       activated_at = DateTime.utc_now()
 
       attrs = %{
         name: Generator.random_name(),
         email: Generator.random_email(),
-        totp_secret_id: totp_secret.id,
-        identity_verifier_id: identity_verifier.id,
+        password_digest: SecurePassword.digest(password, pepper),
         activated_at: activated_at
       }
 

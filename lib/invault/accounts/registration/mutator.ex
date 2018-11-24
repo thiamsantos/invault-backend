@@ -3,17 +3,11 @@ defmodule Invault.Accounts.Registration.Mutator do
   Database mutation related to account registration.
   """
   alias Invault.Repo
-  alias Invault.Accounts.Schemas.{ActivationCode, IdentityVerifier, User}
+  alias Invault.Accounts.Schemas.{ActivationCode, User}
 
   def insert_user(attrs) do
     %User{}
     |> User.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  def insert_identity_verifier(attrs) do
-    %IdentityVerifier{}
-    |> IdentityVerifier.changeset(attrs)
     |> Repo.insert()
   end
 
