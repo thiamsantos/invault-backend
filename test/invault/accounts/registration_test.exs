@@ -114,5 +114,9 @@ defmodule Invault.Accounts.RegistrationTest do
       assert Repo.all(ActivationCode) == []
       assert_no_emails_delivered()
     end
+
+    test "return error when password is too short"
+    test "return error when password is too long"
+    test "return error when password has been in a data leak"
   end
 end

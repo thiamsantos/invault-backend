@@ -1,10 +1,13 @@
-# defmodule InvaultWeb.GraphQL.Accounts.Resolver do
-#   @moduledoc """
-#   GraphQL resolver that handles operations related to accounts.
-#   """
-#   alias Invault.Accounts
+defmodule InvaultWeb.GraphQL.Accounts.Resolver do
+  @moduledoc """
+  GraphQL resolver that handles operations related to accounts.
+  """
+  alias Invault.Accounts.Registration.Request
+  alias Invault.Accounts
 
-#   def create_totp_secret(_, _) do
-#     Accounts.create_totp_secret!()
-#   end
-# end
+  def register_user(%{input: input}, _) do
+    Request
+    |> struct(input)
+    |> Accounts.register()
+  end
+end
